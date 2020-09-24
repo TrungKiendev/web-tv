@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import useVideos from '../hooks/useVideos';
 import BgYtPlayer from './BgYtPlayer';
-import Coverflow from './Coverflow';
+import Slider from './Slider';
 
 import './App.scss';
 
 const App = () => {
 	const [selectedVideo, setSelectedVideo] = useState(null);
-	const [videos, search] = useVideos('popular');
-
-	useEffect(() => {
-		setSelectedVideo(videos[0]);
-	}, [videos]);
+	const [videos, search] = useVideos('');
 
 	return (
 		<div className="page">
@@ -22,7 +18,7 @@ const App = () => {
 						<div style={{marginTop: '15%'}}>
 							<SearchBar onSubmit={search}/>	
 						</div>
-						<Coverflow slides={videos} onVideoSelect={setSelectedVideo}/>
+						<Slider slides={videos} onVideoSelect={setSelectedVideo}/>
 					</div>
 			</div>
 		</div>

@@ -1,22 +1,26 @@
 import React, { Component, createRef } from 'react';
 import Swiper from 'react-id-swiper';
 import "swiper/css/swiper.css";
-import "./Coverflow.scss";
+import "./Slider.scss";
 
-class Coverflow extends Component {
+class Slider extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.swiperRef = createRef();
+        this.state = {
+            touched: false
+        };
     }
     _onClick = (i) => {
+        if(!this.state.touched) this.setState(({touched})=>({touched: !touched }));
         this.props.onVideoSelect(this.props.slides[i]);
         this.swiperRef.current.swiper.realIndex = i;
     }
     
 	renderList() {
 		return this.props.slides.map((video, i) => {
-            const selectedIndex = this.swiperRef.current ? this.swiperRef.current.swiper.realIndex : 0;
+            const selectedIndex = this.swiperRef.current ? this.swiperRef.current.swiper.realIndex : null;
 
 			return (
                 <div 
@@ -28,9 +32,12 @@ class Coverflow extends Component {
                     }}
                 >
                     <img 
-                        style={selectedIndex === i ? 
-                            { border: '7px solid #fafafa' } : 
-                            {boxShadow: '5px 5px 20px'}} 
+                        style={
+                            selectedIndex === i 
+                            && this.state.touched 
+                            ? {border: '7px solid #fafafa'} 
+                            : {boxShadow: '5px 5px 20px'}
+                        } 
                         className="ui image" 
                         src={video.snippet.thumbnails.medium.url} 
                         alt={video.snippet.title} 
@@ -58,4 +65,4 @@ class Coverflow extends Component {
 }
 
 
-export default Coverflow;
+export default Slider;

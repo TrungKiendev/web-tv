@@ -28,3 +28,4 @@ yarn-error.log*
 
 procfile.txt
 server.js
+.vercel

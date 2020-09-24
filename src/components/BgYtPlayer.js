@@ -61,13 +61,16 @@ class BgYtPlayer extends Component {
               controls: 0,
               rel: 0,
               showinfo: 0,
-              loop: 1,
-              mute: 1
+              loop: 1
             }
         };
         const { visible } = this.state;
         
-        if (!this.props.video) return <div></div>; 
+        if (!this.props.video) return (
+            <div className="no-video">
+                <p>search and select a video...</p>
+            </div>
+        ); 
 
         const currentVid = this.props.video;
         return (
